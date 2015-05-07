@@ -1,3 +1,5 @@
+/* Data arrays for CTIPS:                                                   */
+
 /* Number of temperatures:                                                  */
 static int ntemp = 119;
 
@@ -22,7 +24,7 @@ static double Tdat[] = {
 static int niso[] = {
   /*    1      2     3    4     5       6      7      8     9     10    11  */
   /*  H2O    CO2    O3  N2O    CO     CH4     O2     NO   SO2    NO2   NH3  */
-       6,    11,   18,   5,     6,     4,     3,     3,    2,     1,    2, 
+  0,    6,    11,   18,   5,     6,     4,     3,     3,    2,     1,    2, 
 
   /*   12     13    14   15     16     17     18     19    20     21    22  */
   /* HNO3     OH    HF  HCl    HBr     HI    ClO    OCS  H2CO   HOCl    N2  */
@@ -42,21 +44,21 @@ static int niso[] = {
 
 /* Cumulative number of isotopes:                                           */
 static int cumiso[] = {
-   0,   6,  17,  35,  40,  46,  50,  53,  56,  58,  59,
-  61,  62,  65,  66,  68,  70,  71,  73,  78,  81,  83,
-  84,  87,  89,  90,  93,  95,  96,  97,  98, 101, 102,
- 103, 104, 106, 107, 109, 111, 112, 114, 118, 119, 120,
- 126, 128, 132, 134, 137, 138, 139};
+   0,   0,   6,  17,  35,  40,  46,  50,  53,  56,  58,  59,
+       61,  62,  65,  66,  68,  70,  71,  73,  78,  81,  83,
+       84,  87,  89,  90,  93,  95,  96,  97,  98, 101, 102,
+      103, 104, 106, 107, 109, 111, 112, 114, 118, 119, 120,
+      126, 128, 132, 134, 137, 138, 139};
 
 /* Isotpe ID for each molecule:                                             */
 static int isoID[] = {
-     161, 181, 171, 162, 182, 172,                           /* 1 H2O       */
-     626, 636, 628, 627, 638, 637, 828, 728, 727, 838, 837,  /* 2 CO2       */
-     666, 668, 686, 667, 676, 886, 868, 678, 768,
-     786, 776, 767, 888, 887, 878, 778, 787, 777,            /* 3 O3        */
-     446, 456, 546, 448, 447,                                /* 4 N2O       */
-      26,  36,  28,  27,  38,  37,                           /* 5 CO        */
-     211, 311, 212, 312,                                     /* 6 CH4       */
+     161, 181, 171, 162, 182, 172,                           /*  1 H2O      */
+     626, 636, 628, 627, 638, 637, 828, 728, 727, 838, 837,  /*  2 CO2      */
+     666, 668, 686, 667, 676, 886, 868, 678, 768,                
+     786, 776, 767, 888, 887, 878, 778, 787, 777,            /*  3 O3       */
+     446, 456, 546, 448, 447,                                /*  4 N2O      */
+      26,  36,  28,  27,  38,  37,                           /*  5 CO       */
+     211, 311, 212, 312,                                     /*  6 CH4      */
       66,  68,  67,                                          /*  7 O2       */
       46,  56,  48,                                          /*  8 NO       */
      626, 646,                                               /*  9 SO2      */
@@ -3682,94 +3684,3 @@ static float Qdata[] = {
   0.28514E+07, 0.29595E+07, 0.30709E+07, 0.31856E+07, 0.33038E+07,
   0.34254E+07, 0.35507E+07, 0.36796E+07, 0.38122E+07
 };
-
-int getiso(int mol, int iso){
-  /*  */
-  int i;
-  for (i=0; i<niso[mol]; i++)
-    if (isoID[cumiso[mol-1]+i] == iso)
-      return i;
-  return -1;
-}
-
-int getq(int mol, int iso, float **Q){
-  int start = ntemp * (iso + cumiso[mol-1]);
-  *Q = &Qdata[start];
-  return 1;
-}
-
-double lagrange3(double *temp, float *q, double t){
-  /* LaGrange three point interpolation:                                    */
-  double A0D1, A0D2, A1D1, A1D2, A2D1, A2D2;
-
-  A0D1 = temp[0] - temp[1];
-  A0D2 = temp[0] - temp[2];
-  A1D1 = temp[1] - temp[0];
-  A1D2 = temp[1] - temp[2];
-  A2D1 = temp[2] - temp[0];
-  A2D2 = temp[2] - temp[1];
-
-  /* Avoid dividing by zero:                                                */
-  if (A0D1 == 0.0) A0D1 = 0.0001;
-  if (A0D2 == 0.0) A0D2 = 0.0001;
-  if (A1D1 == 0.0) A1D1 = 0.0001;
-  if (A1D2 == 0.0) A1D2 = 0.0001;
-  if (A2D1 == 0.0) A2D1 = 0.0001;
-  if (A2D2 == 0.0) A2D2 = 0.0001;
-
-  return q[0] * (t-temp[1]) * (t-temp[2]) / (A0D1*A0D2) +
-         q[1] * (t-temp[0]) * (t-temp[2]) / (A1D1*A1D2) +
-         q[2] * (t-temp[0]) * (t-temp[1]) / (A2D1*A2D2);
-
-}
-
-double lagrange4(double *temp, float *q, double t){
-  /* LaGrange four points interpolation                                     */
-  double A0D1, A0D2, A0D3, A1D1, A1D2, A1D3,
-         A2D1, A2D2, A2D3, A3D1, A3D2, A3D3;
-
-  A0D1 = temp[0] - temp[1];
-  A0D2 = temp[0] - temp[2];
-  A0D3 = temp[0] - temp[3];
-
-  A1D1 = temp[1] - temp[0];
-  A1D2 = temp[1] - temp[2];
-  A1D3 = temp[1] - temp[3];
-
-  A2D1 = temp[2] - temp[0];
-  A2D2 = temp[2] - temp[1];
-  A2D3 = temp[2] - temp[3];
-
-  A3D1 = temp[3] - temp[0];
-  A3D2 = temp[3] - temp[1];
-  A3D3 = temp[3] - temp[2];
-
-  /* Avoid dividing by zero:                                                */
-  if (A0D1 == 0.0) A0D1 = 0.0001;
-  if (A0D2 == 0.0) A0D2 = 0.0001;
-  if (A0D3 == 0.0) A0D3 = 0.0001;
-  if (A1D1 == 0.0) A1D1 = 0.0001;
-  if (A1D2 == 0.0) A1D2 = 0.0001;
-  if (A1D3 == 0.0) A1D3 = 0.0001;
-  if (A2D1 == 0.0) A2D1 = 0.0001;
-  if (A2D2 == 0.0) A2D2 = 0.0001;
-  if (A2D3 == 0.0) A2D3 = 0.0001;
-  if (A3D1 == 0.0) A3D1 = 0.0001;
-  if (A3D2 == 0.0) A3D2 = 0.0001;
-  if (A3D3 == 0.0) A3D3 = 0.0001;
-
-  return q[0] * (t-temp[1]) * (t-temp[2]) * (t-temp[3]) / (A0D1*A0D2*A0D3) +
-         q[1] * (t-temp[0]) * (t-temp[2]) * (t-temp[3]) / (A1D1*A1D2*A1D3) +
-         q[2] * (t-temp[0]) * (t-temp[1]) * (t-temp[3]) / (A2D1*A2D2*A2D3) +
-         q[3] * (t-temp[0]) * (t-temp[1]) * (t-temp[2]) / (A3D1*A3D2*A3D3);
-}
-
-int binsearch(double *array, double value, int lo, int hi){
-  /* Do a binary search of value in a sorted array of length n.
-     Returns the index of the point inmediately smaller or equal to value. */
-  if (hi-lo == 1)
-    return lo;
-  if (array[(hi+lo)/2] > value)
-    return binsearch(array, value, lo, (hi+lo)/2);
-  return binsearch(array, value, (hi+lo)/2, hi);
-}
