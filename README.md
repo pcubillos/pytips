@@ -28,7 +28,7 @@ git clone https://github.com/pcubillos/ctips/
 
 Compile ctips program:
 ```shell
-cd $topdir  
+cd $topdir/ctips
 make  
 ```
 
