@@ -28,7 +28,7 @@ git clone https://github.com/pcubillos/ctips/
 
 Compile ctips program:
 ```shell
-cd $topdir  
+cd $topdir/ctips
 make  
 ```
 
@@ -95,9 +95,9 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 
 | Molecule Name | Molecule ID   | Isotope ID    |
 | ------------- | --------------| --------------|
-| H2O           | 1             | 161, 181, 171, 162, 182, 172 |
-| CO2      |  2 |    626, 636, 628, 627, 638, 637, 828, 728, 727, 838, 837, 666, 668, 686, 667, 676, 886, 868, 678, 768                          |              
-| O3       |  3 |    786, 776, 767, 888, 887, 878, 778, 787, 777 |
+| H2O           | 1             | 161, 181, 171, 162, 182, 172   |
+| CO2      |  2 |    626, 636, 628, 627, 638, 637, 828, 728, 727, 838, 837 |
+| O3       |  3 |    666, 668, 686, 667, 676, 886, 868, 678, 768, 786, 776, 767, 888, 887, 878, 778, 787, 777 |
 | N2O      |  4 |    446, 456, 546, 448, 447                     |
 | CO       |  5 |     26,  36,  28,  27,  38,  37                |
 | CH4      |  6 |    211, 311, 212, 312                          |
@@ -130,7 +130,7 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 | HO2      | 33 |    166                                         |
 | O        | 34 |      6                                         |
 | ClONO2   | 35 |   5646, 7646                                   |
-| NO+      | 36 |     46,                                        |
+| NO+      | 36 |     46                                         |
 | HOBr     | 37 |    169,  161                                   |
 | C2H4     | 38 |    221,  231                                   |
 | CH3OH    | 39 |   2161                                         |
