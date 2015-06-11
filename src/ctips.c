@@ -139,9 +139,32 @@ static PyMethodDef ctips_methods[] = {
 };
 
 
-/* When Python imports a C module named 'X' it loads the module             */
+#if PY_MAJOR_VERSION >= 3
+
+/* Module definition for Python 3.                                          */
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    "ctips",
+    ctips__doc__,
+    -1,
+    ctips_methods
+};
+
+/* When Python 3 imports a C module named 'X' it loads the module           */
+/* then looks for a method named "PyInit_"+X and calls it.                  */
+PyObject *PyInit_ctips (void) {
+  PyObject *module = PyModule_Create(&moduledef);
+  import_array();
+  return module;
+}
+
+#else // Python 2
+
+/* When Python 2 imports a C module named 'X' it loads the module           */
 /* then looks for a method named "init"+X and calls it.                     */
 void initctips(void){
   Py_InitModule3("ctips", ctips_methods, ctips__doc__);
   import_array();
 }
+
+#endif
