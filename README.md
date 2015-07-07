@@ -5,6 +5,7 @@ C implementation of the Total Internal Partition Sums (TIPS) code with wrapper f
 * [Team Members](#team-members)
 * [Install and Compile](#install-and-compile)
 * [Getting Started](#getting-started)
+* [Important Notes](#important-notes)
 * [Be Kind](#be-kind)
 * [References](#references)
 * [License](#license)
@@ -73,6 +74,25 @@ print(pf)
 >>> [  116.40320395   326.64080103   602.85201367   954.65522363  1417.76400684]
 
 ```
+### Important Notes:
+
+- TIPS-2011 and HITRAN-2012 agree up to the 42nd (included), the 44th, and
+  the 46th species.
+- The AFGL code for the 43rd species (C4H2) differ between HITRAN-2012 (2211)
+  and TIPS (1221).
+- From the 45th species and on, the species ID disagree, being:
+
+  ID  | HITRAN-2012  | TIPS-2011
+  ----| -------------| ----
+  45  | H2           | C2N2
+  46  | CS           | CS
+  47  | SO3          | H2
+  48  |              | SO
+  49  |              | C3H4
+  50  |              | CH3
+  51  |              | CS2
+
+- To resolve this issue, CTIPS will follow the HITRAN-2012 numbering system, and append the remaining species (C2N2, SO, C3H4, CH3, CS2) after the 47th HITRAN species.
 
 ### Be Kind:
 
@@ -93,8 +113,8 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 
 ### HITRAN Species List:
 
-| Molecule Name | Molecule ID   | Isotope ID    |
-| ------------- | --------------| --------------|
+| Molecule Name | Molecule ID   | Isotope ID    | Notes 
+| ------------- | --------------| --------------|------
 | H2O           | 1             | 161, 181, 171, 162, 182, 172   |
 | CO2      |  2 |    626, 636, 628, 627, 638, 637, 828, 728, 727, 838, 837 |
 | O3       |  3 |    666, 668, 686, 667, 676, 886, 868, 678, 768, 786, 776, 767, 888, 887, 878, 778, 787, 777 |
@@ -137,12 +157,13 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 | CH3Br    | 40 |    219,  211                                   |
 | CH3CN    | 41 |   2124, 2134, 3124, 3134                       |
 | CF4      | 42 |     29                                         |
-| C4H2     | 43 |   1221                                         |
+| C4H2     | 43 |   2211                                         |
 | HC3N     | 44 |  12224, 12234, 12324, 13224, 12225, 22224      |
-| C2N2     | 45 |   4224, 5225                                   |
+| H2       | 45 |     11,   12                                   | 
 | CS       | 46 |     22,   24,     32,    23                    |
-| H2       | 47 |     11,   12                                   |
-| SO       | 48 |     26,   46,     28                           |
-| C3H4     | 49 |   1221                                         |
-| CH3      | 50 |   2111                                         |
-| CS2      | 51 |    222,   224,   223,   232                    |
+| SO3      | 47 |     26                                         | 
+| C2N2     | 48 |   4224, 5225                                   | 
+| SO       | 49 |     26,   46,     28                           | 
+| C3H4     | 50 |   1221                                         | 
+| CH3      | 51 |   2111                                         | 
+| CS2      | 52 |    222,   224,   223,   232                    | 
