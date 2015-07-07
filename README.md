@@ -113,8 +113,8 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 
 ### HITRAN Species List:
 
-| Molecule Name | Molecule ID   | Isotope ID    | Notes 
-| ------------- | --------------| --------------|------
+| Molecule Name | Molecule ID   | Isotope ID    |
+| ------------- | --------------| --------------|
 | H2O           | 1             | 161, 181, 171, 162, 182, 172   |
 | CO2      |  2 |    626, 636, 628, 627, 638, 637, 828, 728, 727, 838, 837 |
 | O3       |  3 |    666, 668, 686, 667, 676, 886, 868, 678, 768, 786, 776, 767, 888, 887, 878, 778, 787, 777 |
