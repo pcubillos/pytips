@@ -13,6 +13,7 @@ C implementation of the Total Internal Partition Sums (TIPS) code with wrapper f
 
 ### Team Members:
 * [Patricio Cubillos](https://github.com/pcubillos/) (UCF) <pcubillos@fulbrightmail.org>
+* [AJ Foster](http://aj-foster.com) (UCF)
 
 ### Install and Compile:
 To obtain the CTIPS code, clone the repository to your local machine with the following terminal commands.  First, create a top-level directory to place the code:  
@@ -157,13 +158,15 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 | CH3Br    | 40 |    219,  211                                   |
 | CH3CN    | 41 |   2124, 2134, 3124, 3134                       |
 | CF4      | 42 |     29                                         |
-| C4H2     | 43 |   2211                                         |
-| HC3N     | 44 |  12224, 12234, 12324, 13224, 12225, 22224      |
-| H2       | 45 |     11,   12                                   | 
-| CS       | 46 |     22,   24,     32,    23                    |
-| SO3      | 47 |     26                                         | 
-| C2N2     | 48 |   4224, 5225                                   | 
-| SO       | 49 |     26,   46,     28                           | 
-| C3H4     | 50 |   1221                                         | 
-| CH3      | 51 |   2111                                         | 
-| CS2      | 52 |    222,   224,   223,   232                    | 
+| C4H2     | 43  |  2211*                                         |
+| HC3N     | 44  |  12224, 12234, 12324, 13224, 12225, 22224      |
+| H2       | 45* |     11,   12                                   | 
+| CS       | 46  |     22,   24,     32,    23                    |
+| SO3      | 47* |     26                                         | 
+| C2N2     | 48* |   4224, 5225                                   | 
+| SO       | 49* |     26,   46,     28                           | 
+| C3H4     | 50* |   1221                                         | 
+| CH3      | 51* |   2111                                         | 
+| CS2      | 52* |    222,   224,   223,   232                    | 
+
+ (*) See [Notes](#important-notes).
