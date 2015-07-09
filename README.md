@@ -44,34 +44,37 @@ make clean
 The following script quickly lets you calculate the partition function for a Methane isotope from the Python Interpreter.  To begin, follow the instructions in the previous Section to install and compile the code.  Now open the Interpreter:
 
 ```shell
-cd $topdir
+cd $topdir/ctips
 ipython
 ```
 
 From the Python Interpreter:
 ```python
-import sys
-sys.path.append("ctips/lib")
-import ctips as ct
+import tips as t
 
 # Display the help message:
-help(ct.tips)
+help(t)
 
-# HITRAN ID for Methane (See the full list at the bottom of the page):
+# HITRAN-2012 ID for Methane (See the full list at the bottom of the page):
 molID = 6
-# Let's use the most common isotope of Methane:
-isoID = 211
+# Get the list of isotope ID's for methane:
+isoID = t.iso(molID)
+print(isoID)
+>>> [211 311 212 312]
+
+# Calculate the partition function for all methane isotopes at 100.0 K:
+temp1 = 100.0
+pf_100K = t.tips(molID, isoID, temp1)
+print(pf_100K)
+>>> [  116.40320395   232.81455212   939.16979858  1879.84831201]
+
+# Calculate the partition function for the first methane isotope for a range of temperatures:
+iso_211 = 211
 # Temperatures:
-temp = np.array([100.0, 200.0, 300.0, 400.0, 500.0])
-
-# The temp, molID, and isoID arrays must all have the same length:
-molID = np.repeat(molID, len(temp))
-isoID = np.repeat(isoID, len(temp))
-
+temp2 = np.array([100.0, 200.0, 300.0, 400.0, 500.0])
 # Calculate the partition function:
-pf = ct.tips(molID, isoID, temp)
-# Show results:
-print(pf)
+pf_211 = t.tips(molID, iso_211, temp2)
+print(pf_211)
 >>> [  116.40320395   326.64080103   602.85201367   954.65522363  1417.76400684]
 
 ```
@@ -158,15 +161,15 @@ We will add a License as soon as the original author of the FORTRAN TIPS code pu
 | CH3Br    | 40 |    219,  211                                   |
 | CH3CN    | 41 |   2124, 2134, 3124, 3134                       |
 | CF4      | 42 |     29                                         |
-| C4H2     | 43  |  2211*                                         |
-| HC3N     | 44  |  12224, 12234, 12324, 13224, 12225, 22224      |
-| H2       | 45* |     11,   12                                   | 
-| CS       | 46  |     22,   24,     32,    23                    |
-| SO3      | 47* |     26                                         | 
-| C2N2     | 48* |   4224, 5225                                   | 
-| SO       | 49* |     26,   46,     28                           | 
-| C3H4     | 50* |   1221                                         | 
-| CH3      | 51* |   2111                                         | 
-| CS2      | 52* |    222,   224,   223,   232                    | 
+| C4H2     | 43    |  2211(*)                                    |
+| HC3N     | 44    |  12224, 12234, 12324, 13224, 12225, 22224   |
+| H2       | 45(*) |     11,   12                                | 
+| CS       | 46    |     22,   24,     32,    23                 |
+| SO3      | 47(*) |     26                                      | 
+| C2N2     | 48(*) |   4224, 5225                                | 
+| SO       | 49(*) |     26,   46,     28                        | 
+| C3H4     | 50(*) |   1221                                      | 
+| CH3      | 51(*) |   2111                                      | 
+| CS2      | 52(*) |    222,   224,   223,   232                 | 
 
  (*) See [Notes](#important-notes).
