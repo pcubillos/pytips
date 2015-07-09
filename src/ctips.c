@@ -43,6 +43,44 @@ static double Qeval(double temperature, int itemp, float *Qdat){
   return Q;
 }
 
+
+PyDoc_STRVAR(iso__doc__,
+"Return the list of isotope IDs for a given molecule ID.  \n\
+                                                          \n\
+Parameters:                                               \n\
+-----------                                               \n\
+molID: integer                                            \n\
+   Molecule ID (as given in HITRAN 2012).                 \n\
+                                                          \n\
+Returns:                                                  \n\
+--------                                                  \n\
+isoID: 1D integer ndarray                                 \n\
+   Array of isotope IDs (as given in HITRAN 2012).        \n\
+");
+
+static PyObject *iso(PyObject *self, PyObject *args){
+  PyArrayObject *iso;  /* Output isotope ID arrays                          */
+  int mol,             /* Input molecule ID                                 */
+      i;               /* for loop index                                    */
+  npy_intp size[1];
+
+  /* Load inputs:                                                           */
+  if (!PyArg_ParseTuple(args, "i", &mol))
+    return NULL;
+
+  /* Size of output array:                                                  */
+  size[0] = niso[mol];
+
+  /* Fill in isotope ID's for this molecule:                                */
+  iso = (PyArrayObject *) PyArray_SimpleNew(1, size, PyArray_INT);
+  for (i=0; i<niso[mol]; i++){
+    INDi(iso, i) = isoID[cumiso[mol]+i];
+  }
+
+  return Py_BuildValue("N", iso);
+}
+ 
+
 PyDoc_STRVAR(tips__doc__,
 "Calculate the partition function for the given (HITRAN) isotopes   \n\
 and temperatures (70-3000K) using a 4-point Lagrange interpolation. \n\
@@ -135,6 +173,7 @@ with corresponding publication: JQSRT - 82, 401-412, 2003           \n\
 /* A list of all the methods defined by this module.                        */
 static PyMethodDef ctips_methods[] = {
     {"tips",      tips,      METH_VARARGS, tips__doc__},
+    {"iso",       iso,       METH_VARARGS, iso__doc__},
     {NULL,         NULL,       0,            NULL}       /* sentinel        */
 };
 

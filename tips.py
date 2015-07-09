@@ -58,4 +58,8 @@ def tips(molID, isoID, temp):
 
 
 def iso(molID):
-  pass
+  """
+  Return the list of isotope IDs for the given molecule ID.
+  Wrapper of C ctips iso function.
+  """
+  return ct.iso(int(molID))
