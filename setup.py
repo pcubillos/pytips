@@ -8,8 +8,8 @@ incdir = 'include' # Include folder with header files
 
 files = os.listdir(srcdir)
 # This will filter the results for just the c files:
-files = filter(lambda x:     re.search('.+[.]c$',     x), files)
-files = filter(lambda x: not re.search('[.#].+[.]c$', x), files)
+files = list(filter(lambda x:     re.search('.+[.]c$',     x), files))
+files = list(filter(lambda x: not re.search('[.#].+[.]c$', x), files))
 
 inc = [get_include(), incdir]
 eca = []  # ['-fopenmp']
