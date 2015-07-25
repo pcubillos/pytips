@@ -1,4 +1,6 @@
 #include <Python.h>
+
+#define NPY_NO_DEPRECATED_API NPY_1_8_API_VERSION
 #include <numpy/arrayobject.h>
 
 #include "ind.h"
@@ -72,7 +74,7 @@ static PyObject *iso(PyObject *self, PyObject *args){
   size[0] = niso[mol];
 
   /* Fill in isotope ID's for this molecule:                                */
-  iso = (PyArrayObject *) PyArray_SimpleNew(1, size, PyArray_INT);
+  iso = (PyArrayObject *) PyArray_SimpleNew(1, size, NPY_INT);
   for (i=0; i<niso[mol]; i++){
     INDi(iso, i) = isoID[cumiso[mol]+i];
   }
@@ -111,11 +113,11 @@ static PyObject *tips(PyObject *self, PyObject *args){
     return NULL;
 
   /* Get array size:                                                        */
-  ndata = molID->dimensions[0];
+  ndata = PyArray_DIM(molID, 0);
   size[0] = ndata;
 
   /* Returned array with the partition function:                            */
-  Qarray = (PyArrayObject *) PyArray_SimpleNew(1, size, PyArray_DOUBLE);
+  Qarray = (PyArrayObject *) PyArray_SimpleNew(1, size, NPY_DOUBLE);
 
   /* Calculate the partition function for each input value:                 */
   for (i=0; i<ndata; i++){
@@ -178,9 +180,32 @@ static PyMethodDef ctips_methods[] = {
 };
 
 
-/* When Python imports a C module named 'X' it loads the module             */
+#if PY_MAJOR_VERSION >= 3
+
+/* Module definition for Python 3.                                          */
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    "ctips",
+    ctips__doc__,
+    -1,
+    ctips_methods
+};
+
+/* When Python 3 imports a C module named 'X' it loads the module           */
+/* then looks for a method named "PyInit_"+X and calls it.                  */
+PyObject *PyInit_ctips (void) {
+  PyObject *module = PyModule_Create(&moduledef);
+  import_array();
+  return module;
+}
+
+#else // Python 2
+
+/* When Python 2 imports a C module named 'X' it loads the module           */
 /* then looks for a method named "init"+X and calls it.                     */
 void initctips(void){
   Py_InitModule3("ctips", ctips_methods, ctips__doc__);
   import_array();
 }
+
+#endif
