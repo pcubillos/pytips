@@ -1,3 +1,6 @@
+// Copyright (c) 2015-2016 Patricio Cubillos and contributors.
+// ctips is open-source software under the MIT license (see LICENSE).
+
 #include <Python.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_8_API_VERSION

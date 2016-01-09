@@ -113,7 +113,8 @@ with corresponding publication:
 
 ### License:
 
-We will add a License as soon as the original author of the FORTRAN TIPS code puts a License for his code.
+Copyright (c) 2015-2016 Patricio Cubillos and contributors.
+ctips is open-source software under the MIT license (see LICENSE).
 
 ### HITRAN Species List:
 

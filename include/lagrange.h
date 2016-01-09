@@ -1,3 +1,6 @@
+// Copyright (c) 2015-2016 Patricio Cubillos and contributors.
+// ctips is open-source software under the MIT license (see LICENSE).
+
 /* Lagrange interpolation routines:                                         */
 
 double lagrange3(double *temp, float *q, double t){

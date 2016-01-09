@@ -1,3 +1,6 @@
+# Copyright (c) 2015-2016 Patricio Cubillos and contributors.
+# ctips is open-source software under the MIT license (see LICENSE).
+
 import sys
 import numpy as np
 from numpy.core.numeric import isscalar
@@ -11,8 +14,8 @@ def tips(molID, isoID, temp):
   Evaluate the partition function for the given isotope(s) at the given
   temperature(s).  This is a wrapper of ctips.tips.
 
-  Parameters:
-  -----------
+  Parameters
+  ----------
   molID: Scalar or iterable
      The molecular ID as given by HITRAN 2012.
   isoID: Scalar or iterable
@@ -20,8 +23,8 @@ def tips(molID, isoID, temp):
   temp:  Scalar or iterable
      Temperature a which to evaluate the partition function.
 
-  Notes:
-  ------
+  Notes
+  -----
   - The molID and isoID are casted into an integer ndarray data types.
   - The temp is casted into a double ndarray data type.
   - If the arguments have different sizes, the code resizes them to

@@ -4,4 +4,4 @@
 # MC3 Version:
 ctips_VER =  1  # Major version
 ctips_MIN =  0  # Minor version
-ctips_REV =  0  # Revision
+ctips_REV =  1  # Revision
