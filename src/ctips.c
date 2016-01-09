@@ -108,7 +108,8 @@ static PyObject *tips(PyObject *self, PyObject *args){
   int mol=-1, iso=-1,    /* Current molecule and isotope                    */
       iiso=-1,           /* Q index for given isotope                       */
       itemp=-1,          /* Temperature index from table                    */
-      i, ndata;          /* Input arrays length                             */
+      i;
+  long ndata;            /* Input arrays length                             */
   npy_intp size[1];
 
   /* Load inputs:                                                           */
