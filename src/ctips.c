@@ -1,3 +1,6 @@
+// Copyright (c) 2015-2016 Patricio Cubillos and contributors.
+// ctips is open-source software under the MIT license (see LICENSE).
+
 #include <Python.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_8_API_VERSION
@@ -105,7 +108,8 @@ static PyObject *tips(PyObject *self, PyObject *args){
   int mol=-1, iso=-1,    /* Current molecule and isotope                    */
       iiso=-1,           /* Q index for given isotope                       */
       itemp=-1,          /* Temperature index from table                    */
-      i, ndata;          /* Input arrays length                             */
+      i;
+  long ndata;            /* Input arrays length                             */
   npy_intp size[1];
 
   /* Load inputs:                                                           */
