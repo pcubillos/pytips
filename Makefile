@@ -1,6 +1,6 @@
-# Makefile - prepared for ctips
+# Makefile - prepared for pytips
 #
-# `make` - Build and compile the ctips executable and python extension.
+# `make` - Build and compile the pytips package.
 # `make clean` - Remove all compiled (non-source) files that are created.
 #
 # If you are interested in the commands being run by this makefile, you may add
@@ -11,8 +11,7 @@
 # This will display the exact commands being used for building, etc.
 #
 
-SRCDIR = src/
-LIBDIR = lib/
+LIBDIR = pytips/lib/
 
 # Set verbosity
 #
@@ -27,9 +26,10 @@ endif
 
 
 all:
-	@echo "Building ctips Python extension."
-	$(Q) python setup.py build_ext --inplace $(O)
-	@mv -f *.so $(LIBDIR)
+	@echo "Building pytips package."
+	$(Q) python setup.py build $(O)
+	@mv -f build/lib.*/*.so $(LIBDIR)
 	@rm -rf build/
+	@echo "Successful compilation."
 clean:
 	@rm -rf $(LIBDIR)*.so

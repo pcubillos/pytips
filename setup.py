@@ -1,25 +1,27 @@
 # Copyright (c) 2015-2016 Patricio Cubillos and contributors.
-# ctips is open-source software under the MIT license (see LICENSE).
+# pytips is open-source software under the MIT license (see LICENSE).
 
 from numpy import get_include
 import os, re, sys
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
-sys.path.append("./src/")
+topdir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(topdir + "/pytips")
 import VERSION as ver
 
-srcdir = 'src/'    # C-code source folder
-incdir = 'include' # Include folder with header files
-#libdir = 'lib/'    # Where the shared objects are put
+srcdir = topdir + '/src_c/'          # C-code source folder
+incdir = topdir + '/src_c/include/'  # Include folder with header files
 
+# Get all file from source dir:
 files = os.listdir(srcdir)
+
 # This will filter the results for just the c files:
 files = list(filter(lambda x:     re.search('.+[.]c$',     x), files))
 files = list(filter(lambda x: not re.search('[.#].+[.]c$', x), files))
 
 inc = [get_include(), incdir]
-eca = []  # ['-fopenmp']
-ela = []  # ['-lgomp']
+eca = []
+ela = []
 
 extensions = []
 for i in range(len(files)):
@@ -31,11 +33,14 @@ for i in range(len(files)):
   extensions.append(e)
 
 
-setup(name          = "CTIPS",
-      version       = '{:d}.{:d}.{:d}'.format(ver.ctips_VER,
-                                              ver.ctips_MIN, ver.ctips_REV),
-      author        = "Patricio Cubillos",
-      author_email  = "pcubillos@fulbrightmail.org",
-      url           = "https://github.com/pcubillos/ctips",
-      description   = 'Partition Function Calculator',
-      ext_modules   = extensions)
+setup(name         = "pytips",
+      version      = '{:d}.{:d}.{:d}'.format(ver.pytips_VER,
+                                             ver.pytips_MIN, ver.pytips_REV),
+      author       = "Patricio Cubillos",
+      author_email = "patricio.cubillos@oeaw.ac.at",
+      url          = "https://github.com/pcubillos/pytips",
+      packages     = ["pytips"],
+      license      = ["MIT"],
+      description  = 'Partition-Function Calculator',
+      include_dirs = inc,
+      ext_modules  = extensions)
