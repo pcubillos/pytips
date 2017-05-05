@@ -1,7 +1,7 @@
-# Copyright (c) 2015-2016 Patricio Cubillos and contributors.
+# Copyright (c) 2015-2017 Patricio Cubillos and contributors.
 # pytips is open-source software under the MIT license (see LICENSE).
 
-__all__ = ["tips", "iso", "molID", "molname"]
+__all__ = ["tips", "iso", "molID", "molname", "to_file"]
 
 import sys, os
 import numpy as np
@@ -131,3 +131,51 @@ def molname(mID):
     print("Molecule ID '{:d}' is invalid.".format(mID))
     return None
   return _molname[mID]
+
+
+def to_file(filename, molname, temp):
+  """
+  Compute partition-function values for all isotopes of a given
+  molecule over a temperature array, and save to file.
+
+  Parameters
+  ----------
+  filename: String
+     Output partition-function file.
+  molname: String
+     Name of the molecule.
+  temp: 1D float ndarray
+     Array of temperatures.
+
+  Example
+  -------
+  >>> import pytips as p
+  >>> temp = np.linspace(70, 3000, 294)
+  >>> molname = "CO2"
+  >>> p.to_file("CO2_tips.dat", molname, temp)
+  """
+  # Compute partition function:
+  isoID = iso(molname)
+  niso  = len(isoID)
+  ntemp = len(temp)
+  data = np.zeros((niso, ntemp), np.double)
+  for i in np.arange(niso):
+    data[i] = tips(molID(molname), isoID[i], temp)
+
+  # Save to file:
+  with open(filename, "w") as fout:
+    fout.write(
+    "# Tabulated {:s} partition-function data from TIPS.\n\n".format(molname))
+
+    fout.write("@ISOTOPES\n         ")
+    for j in np.arange(niso):
+        fout.write("  {:10s}".format(str(isoID[j])))
+    fout.write("\n\n")
+
+    fout.write("# Temperature (K), partition function for each isotope:\n")
+    fout.write("@DATA\n")
+    for i in np.arange(ntemp):
+      fout.write(" {:7.1f} ".format(temp[i]))
+      for j in np.arange(niso):
+        fout.write("  {:10.4e}".format(data[j,i]))
+      fout.write("\n")

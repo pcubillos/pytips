@@ -1,4 +1,4 @@
-# ctips
+# pytips
 C implementation of the Total Internal Partition Sums (TIPS) code with wrapper for Python
 
 ### Table of Contents:
@@ -16,21 +16,15 @@ C implementation of the Total Internal Partition Sums (TIPS) code with wrapper f
 * [AJ Foster](http://aj-foster.com) (UCF)
 
 ### Install and Compile:
-To obtain the CTIPS code, clone the repository to your local machine with the following terminal commands.  First, create a top-level directory to place the code:  
+To obtain the ``pytips`` code, clone the repository to your local machine with the following terminal commands.
 ```shell
-mkdir ctips_demo/  
-cd ctips_demo/  
 topdir=`pwd`
+git clone https://github.com/pcubillos/pytips/
 ```
 
-Clone the repository to your working directory:  
+Compile the ``pytips`` package:
 ```shell
-git clone https://github.com/pcubillos/ctips/
-```
-
-Compile ctips program:
-```shell
-cd $topdir/ctips
+cd $topdir/pytips
 make  
 ```
 
@@ -44,13 +38,13 @@ make clean
 The following script quickly lets you calculate the partition function for a Methane isotope from the Python Interpreter.  To begin, follow the instructions in the previous Section to install and compile the code.  Now open the Interpreter:
 
 ```shell
-cd $topdir/ctips
+cd $topdir/pytips
 ipython
 ```
 
 From the Python Interpreter:
 ```python
-import tips as t
+import pytips as t
 
 # Display the help message:
 help(t)
@@ -96,7 +90,7 @@ print(pf_211)
   50  |              | CH3
   51  |              | CS2
 
-- To resolve this issue, CTIPS will follow the HITRAN-2012 numbering system, and append the remaining species (C2N2, SO, C3H4, CH3, CS2) after the 47th HITRAN species.
+- To resolve this issue, ``pytips`` will follow the HITRAN-2012 numbering system, and append the remaining species (C2N2, SO, C3H4, CH3, CS2) after the 47th HITRAN species.
 
 ### Be Kind:
 
@@ -106,15 +100,15 @@ Please, be kind and aknowledge the effort of the authors, by citing the articles
 
 ### References:
 
-This C code is based on the FORTRAN implementation of the TIPS code
+This Python/C code is based on the FORTRAN implementation of the TIPS code
 written by R. R. Gamache (Robert_Gamache@uml.edu): [faculty.uml.edu/robert_gamache/software/index.htm](http://faculty.uml.edu/robert_gamache/software/index.htm#TIPS_2011)  
 with corresponding publication:   
 [Laraia et al. 2011: Total internal partition sums to support planetary remote sensing](http://adsabs.harvard.edu/abs/2011Icar..215..391L)  
 
 ### License:
 
-Copyright (c) 2015-2016 Patricio Cubillos and contributors.
-ctips is open-source software under the MIT license (see LICENSE).
+Copyright (c) 2015-2017 Patricio Cubillos and contributors.
+pytips is open-source software under the MIT license (see LICENSE).
 
 ### HITRAN Species List:
 
