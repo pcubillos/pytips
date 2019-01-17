@@ -107,7 +107,7 @@ with corresponding publication:
 
 ### License:
 
-Copyright (c) 2015-2017 Patricio Cubillos and contributors.
+Copyright (c) 2015-2019 Patricio Cubillos and contributors.
 pytips is open-source software under the MIT license (see LICENSE).
 
 ### HITRAN Species List:
