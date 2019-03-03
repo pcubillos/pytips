@@ -1,8 +1,11 @@
 # Copyright (c) 2015-2019 Patricio Cubillos and contributors.
 # pytips is open-source software under the MIT license (see LICENSE).
 
+import os
+import re
+import sys
+import setuptools
 from numpy import get_include
-import os, re, sys
 from setuptools import setup, Extension
 
 topdir = os.path.dirname(os.path.realpath(__file__))
@@ -24,9 +27,9 @@ eca = []
 ela = []
 
 extensions = []
-for i in range(len(files)):
-  e = Extension(files[i].rstrip('.c'),
-                sources=["{:s}{:s}".format(srcdir,files[i])],
+for efile in files:
+  e = Extension('pytips.lib.'+efile.rstrip('.c'),
+                sources=["{:s}{:s}".format(srcdir, efile)],
                 include_dirs=inc,
                 extra_compile_args=eca,
                 extra_link_args=ela)
@@ -39,8 +42,9 @@ setup(name         = "pytips",
       author       = "Patricio Cubillos",
       author_email = "patricio.cubillos@oeaw.ac.at",
       url          = "https://github.com/pcubillos/pytips",
-      packages     = ["pytips"],
-      license      = ["MIT"],
+      packages     = setuptools.find_packages(),
+      install_requires = ['numpy>=1.8.1'],
+      license      = "MIT",
       description  = 'Partition-Function Calculator',
       include_dirs = inc,
       ext_modules  = extensions)

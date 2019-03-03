@@ -22,13 +22,16 @@ ifdef VERBOSE
 		Q =
 		O =
 	endif
+else
+	MAKEFLAGS += --no-print-directory
 endif
 
+#	@mv -f build/lib.*/*.so $(LIBDIR)
 
 all:
 	@echo "Building pytips package."
 	$(Q) python setup.py build $(O)
-	@mv -f build/lib.*/*.so $(LIBDIR)
+	@mv -f build/lib.*/pytips/lib/*.so $(LIBDIR)
 	@rm -rf build/
 	@echo "Successful compilation."
 clean:

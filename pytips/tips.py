@@ -3,12 +3,15 @@
 
 __all__ = ["tips", "iso", "molID", "molname", "to_file"]
 
-import sys, os
+import sys
+import os
+
 import numpy as np
 from numpy.core.numeric import isscalar
 
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/lib")
 import ctips as ct
+
 
 _molname = np.array(["", "H2O",    "CO2",    "O3",    "N2O",    "CO",
                          "CH4",    "O2",     "NO",    "SO2",    "NO2",
