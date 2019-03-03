@@ -4,4 +4,4 @@
 # pytips version:
 pytips_VER =  1  # Major version
 pytips_MIN =  1  # Minor version
-pytips_REV =  3  # Revision
+pytips_REV =  4  # Revision
