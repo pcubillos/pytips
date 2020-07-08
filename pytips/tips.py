@@ -9,7 +9,8 @@ import os
 import numpy as np
 from numpy.core.numeric import isscalar
 
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/lib")
+libdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "lib")
+sys.path.append(libdir)
 import ctips as ct
 
 
