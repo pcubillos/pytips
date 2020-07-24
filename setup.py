@@ -9,11 +9,13 @@ from numpy import get_include
 from setuptools import setup, Extension
 
 topdir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(topdir + "/pytips")
+sys.path.append(os.path.join(topdir, "pytips"))
 import VERSION as ver
 
-srcdir = topdir + '/src_c/'          # C-code source folder
-incdir = topdir + '/src_c/include/'  # Include folder with header files
+# C-code source folder
+srcdir = os.path.join(topdir, 'src_c', '')
+# Include folder with header files
+incdir = os.path.join(topdir, 'src_c', 'include', '')
 
 # Get all file from source dir:
 files = os.listdir(srcdir)
